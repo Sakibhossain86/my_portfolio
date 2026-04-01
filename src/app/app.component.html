@@ -1,0 +1,251 @@
+<div class="page">
+  <div class="mesh" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="header__inner">
+      <a href="#" class="brand" (click)="$event.preventDefault(); scrollToSection('top')">
+        <span class="brand__mark">SH</span>
+        <span class="brand__text">Sakib Hossain</span>
+      </a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="site-nav"
+        (click)="toggleMenu()"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="nav" [class.nav--open]="menuOpen()">
+        @for (link of navLinks; track link.id) {
+          <button
+            type="button"
+            class="nav__link"
+            [class.nav__link--active]="activeSection() === link.id"
+            [attr.aria-current]="activeSection() === link.id ? 'location' : null"
+            (click)="scrollToSection(link.id)"
+          >
+            {{ link.label }}
+          </button>
+        }
+        <a class="btn btn--primary nav__cta" (click)="$event.preventDefault(); scrollToSection('contact')" href="#contact">Hire me</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow hero-entrance hero-entrance--1">Software developer · 3+ years</p>
+          <h1 class="hero__title hero-entrance hero-entrance--2">
+            I build reliable
+            <span class="hero__title-accent">web apps</span>
+            with .NET, Angular &amp; SQL Server.
+          </h1>
+          <p class="hero__lead hero-entrance hero-entrance--3">
+            From APIs and data models to polished SPAs — focused on maintainable code, clear UX, and
+            production-ready delivery.
+          </p>
+          <div class="hero__actions hero-entrance hero-entrance--4">
+            <button type="button" class="btn btn--primary" (click)="scrollToSection('projects')">
+              View projects
+            </button>
+            <button type="button" class="btn btn--ghost" (click)="scrollToSection('contact')">
+              Get in touch
+            </button>
+          </div>
+          <ul class="hero__meta hero-entrance hero-entrance--5" aria-label="Tech focus">
+            <li>.NET</li>
+            <li>Angular</li>
+            <li>MSSQL</li>
+          </ul>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__showcase">
+            <div class="hero__showcase-blob hero__showcase-blob--1" aria-hidden="true"></div>
+            <div class="hero__showcase-blob hero__showcase-blob--2" aria-hidden="true"></div>
+            <div class="hero__showcase-panel">
+              <div class="hero__window">
+                <div class="hero__window-bar">
+                  <span class="hero__window-dot"></span>
+                  <span class="hero__window-dot"></span>
+                  <span class="hero__window-dot"></span>
+                  <span class="hero__window-title">Program.cs</span>
+                </div>
+                <pre class="hero__code" aria-hidden="true"><code><span class="hero__tok-k">var</span> builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddDbContext<span class="hero__tok-a">&lt;AppDb&gt;</span>(opt =&gt;
+  opt.UseSqlServer(builder.Configuration.GetConnectionString(<span class="hero__tok-s">"Default"</span>)));
+<span class="hero__tok-c">// ASP.NET Core + Angular · maintainable APIs</span>
+<span class="hero__tok-k">var</span> app = builder.Build();
+app.MapControllers();
+app.Run();</code></pre>
+              </div>
+              <div class="hero__pill-row">
+                <span class="hero__pill">ASP.NET Core</span>
+                <span class="hero__pill">Angular</span>
+                <span class="hero__pill">EF Core</span>
+                <span class="hero__pill">SQL Server</span>
+              </div>
+              <div class="hero__badge hero__badge--showcase">
+                <span class="hero__badge-label">Open to</span>
+                <span class="hero__badge-value">Remote · Hybrid · Dhaka</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section__head" appReveal>
+        <h2 class="section__title">About</h2>
+        <p class="section__subtitle">Straightforward engineering for business outcomes.</p>
+      </div>
+      <div class="about">
+        <div class="about__photo-wrap card about__photo-card" appReveal>
+          <img
+            class="about__photo-img"
+            src="picture.jpeg"
+            alt="Md. Sakib Hossain Sheikh"
+            width="640"
+            height="800"
+            loading="lazy"
+          />
+          <p class="about__photo-caption">Md. Sakib Hossain Sheikh</p>
+        </div>
+        <div class="about__col">
+          <div class="about__text card">
+            <p>
+              I’m a software developer with <strong>three years of professional experience</strong> shipping
+              full-stack solutions. I care about structure in the backend, clarity in the UI, and data
+              that stays correct under load.
+            </p>
+            <p>
+              My sweet spot is <strong>ASP.NET Core</strong> services paired with <strong>Angular</strong>
+              frontends, backed by <strong>Microsoft SQL Server</strong> — with attention to security,
+              performance, and long-term maintainability.
+            </p>
+          </div>
+          <aside class="about__aside card card--accent" appReveal [appRevealDelay]="180">
+            <h3 class="about__aside-title">Currently highlighting</h3>
+            <ul class="about__list">
+              <li>API design &amp; versioning</li>
+              <li>Component-driven Angular UIs</li>
+              <li>SQL tuning &amp; solid schemas</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section__head" appReveal>
+        <h2 class="section__title">Skills</h2>
+        <p class="section__subtitle">Stack and how I apply it day to day.</p>
+      </div>
+      <ul class="skills">
+        @for (s of skills; track s.name; let si = $index) {
+          <li class="skills__item card" appReveal [appRevealDelay]="si * 70">
+            <h3 class="skills__name">{{ s.name }}</h3>
+            <p class="skills__detail">{{ s.detail }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="section__head" appReveal>
+        <h2 class="section__title">Experience</h2>
+        <p class="section__subtitle">Current role and professional responsibilities.</p>
+      </div>
+      <ol class="timeline">
+        @for (job of experiences; track job.period; let ei = $index) {
+          <li class="timeline__item">
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__card card" appReveal [appRevealDelay]="ei * 100">
+              <div class="timeline__top">
+                <h3 class="timeline__role">{{ job.role }}</h3>
+                <span class="timeline__period">{{ job.period }}</span>
+              </div>
+              <p class="timeline__company">{{ job.company }}</p>
+              <ul class="timeline__bullets">
+                @for (b of job.bullets; track b) {
+                  <li>{{ b }}</li>
+                }
+              </ul>
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section__head" appReveal>
+        <h2 class="section__title">Projects</h2>
+        <p class="section__subtitle">My Creations:</p>
+      </div>
+      <div class="projects">
+        @for (p of projects; track p.title; let pi = $index) {
+          <article class="project card" appReveal [appRevealDelay]="pi * 80">
+            <div class="project__media">
+              <img [src]="p.image" [alt]="p.imageAlt" width="900" height="560" loading="lazy" />
+            </div>
+            <div class="project__body">
+              <h3 class="project__title">{{ p.title }}</h3>
+              <p class="project__desc">{{ p.desc }}</p>
+              <p class="project__stack">{{ p.stack }}</p>
+              <div class="project__links">
+                <a class="link-arrow" [href]="p.links.live" target="_blank" rel="noopener noreferrer">Live</a>
+                <a class="link-arrow" [href]="p.links.repo" target="_blank" rel="noopener noreferrer">Code</a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section id="contact" class="section section--contact">
+      <div class="section__head" appReveal>
+        <h2 class="section__title">Contact</h2>
+        <p class="section__subtitle">Email, phone, WhatsApp, or social — I’ll get back to you soon.</p>
+      </div>
+      <div class="contact card" appReveal [appRevealDelay]="120">
+        <div class="contact__grid">
+          <div>
+            <p class="contact__lede">
+              Send a short note about the role, stack, and timeline — I’ll respond within a business day.
+            </p>
+            <a class="contact__email" href="mailto:sakibhossain86&#64;gmail.com">sakibhossain86&#64;gmail.com</a>
+            <p class="contact__phone">
+              <a href="tel:+8801811695986">01811-695986</a>
+              <span class="contact__phone-sep" aria-hidden="true">·</span>
+              <a href="https://wa.me/8801811695986" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </p>
+          </div>
+          <ul class="contact__socials">
+            <li>
+              <a href="https://www.linkedin.com/in/ssaakkiibb1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </li>
+            <li>
+              <a href="https://github.com/Sakibhossain86" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </li>
+            <li>
+              <a href="cv.pdf" download="Md-Sakib-Hossain-Sheikh-CV.pdf">Download CV (PDF)</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" appReveal>
+    <p>© {{ currentYear }} Sakib Hossain</p>
+  </footer>
+</div>
